@@ -37,12 +37,12 @@ class phppgadmin (
   $install_apache       = $phppgadmin::params::install_apache,
   $install_postgres     = $phppgadmin::params::install_postgres,
   $db_host              = $phppgadmin::params::db_host,
-  $db_port              = $phppgadmin::params::db_port
+  $db_port              = $phppgadmin::params::db_port,
+  $http_conf_file       = $phppgadmin::params::http_conf_file
 ) inherits phppgadmin::params {
 
-  $http_conf_file       = $phppgadmin::params::http_conf_file
-  $phppgadmin_package   = $phppgadmin::params::phppgadmin_package
   $phppgadmin_conf_file = $phppgadmin::params::phppgadmin_conf_file
+  $phppgadmin_package   = $phppgadmin::params::phppgadmin_package
 
   if $install_postgres == true {
     class {'postgresql::server': }

@@ -83,10 +83,10 @@ class phppgadmin (
         require => Package[$phppgadmin_package],
     }
 
-#    file_line{'phppgadmin_conf_file_security':
-#        path    => $phppgadmin_conf_file,
-#        match   => "\\t\\\$conf\\['extra_login_security'\\] = false;$",
-#        line    => "\t\$conf\\['extra_login_security'] = true;",
-#        require => Package[$phppgadmin_package],
-#    }
+    file_line{'phppgadmin_conf_file_security':
+        path    => $phppgadmin_conf_file,
+        match   => "\\t\\\$conf\\['extra_login_security'\\] = false;$",
+        line    => "\t\$conf['extra_login_security'] = true;",
+        require => Package[$phppgadmin_package],
+    }
 }

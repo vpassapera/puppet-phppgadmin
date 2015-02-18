@@ -62,31 +62,31 @@ class phppgadmin (
         }
     }
 
-    file{ $http_conf_file:
+    file { $http_conf_file:
         ensure  => present,
         mode    => '0644',
         content => template($http_conf_template_file),
         require => Package[$phppgadmin_package],
     }
 
-    file_line{ 'phppgadmin_conf_file_host':
+    file_line { 'phppgadmin_conf_file_host':
         path    => $phppgadmin_conf_file,
         match   => "\\t\\\$conf\\['servers'\\]\\[0\\]\\['host'\\] = '.*';$",
         line    => "\t\$conf['servers'][0]['host'] = '${db_host}';",
         require => Package[$phppgadmin_package],
     }
 
-    file_line{'phppgadmin_conf_file_port':
+    file_line { 'phppgadmin_conf_file_port':
         path    => $phppgadmin_conf_file,
         match   => "\\t\\\$conf\\['servers'\\]\\[0\\]\\['port'\\] = \\d+;$",
         line    => "\t\$conf['servers'][0]['port'] = ${ db_port };",
         require => Package[$phppgadmin_package],
     }
 
-#    file_line{'phppgadmin_conf_file_security':
-#        path    => $phppgadmin_conf_file,
-#        match   => "\\t\\\$conf\\['extra_login_security'\\] = false;$",
-#        line    => "\t\$conf['extra_login_security'] = true;",
-#        require => Package[$phppgadmin_package],
-#    }
+    file_line { 'phppgadmin_conf_file_security':
+        path    => $phppgadmin_conf_file,
+        match   => "\\t\\\$conf\\['extra_login_security'\\] = true;$",
+        line    => "\t\$conf['extra_login_security'] = false;",
+        require => Package[$phppgadmin_package],
+    }
 }

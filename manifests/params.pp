@@ -24,7 +24,7 @@ class phppgadmin::params {
     $install_postgres   = false   # if true, default postgresql install using puppet-postgresql
     $db_host            = ''      # default - unix socket connection
     $db_port            = '5432'  #
-
+    $security_flag      = true
 
     case $::operatingsystem {
         'RedHat', 'CentOS', 'Fedora': {

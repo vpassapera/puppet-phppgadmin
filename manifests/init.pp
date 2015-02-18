@@ -37,7 +37,8 @@ class phppgadmin (
     $install_apache       = $phppgadmin::params::install_apache,
     $install_postgres     = $phppgadmin::params::install_postgres,
     $db_host              = $phppgadmin::params::db_host,
-    $db_port              = $phppgadmin::params::db_port
+    $db_port              = $phppgadmin::params::db_port,
+    $security_flag        = $phppgadmin::params::security_flag
 ) inherits phppgadmin::params {
 
     $http_conf_file       = $phppgadmin::params::http_conf_file
@@ -85,8 +86,8 @@ class phppgadmin (
 
     file_line { 'phppgadmin_conf_file_security':
         path    => $phppgadmin_conf_file,
-        match   => "\\t\\\$conf\\['extra_login_security'\\] = true;$",
-        line    => "\t\$conf['extra_login_security'] = false;",
+        match   => "\\t\\\$conf\\['extra_login_security'\\] = .*;$",
+        line    => "\t\$conf['extra_login_security'] = ${ security_flag };",
         require => Package[$phppgadmin_package],
     }
 }
